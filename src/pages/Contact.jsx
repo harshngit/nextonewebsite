@@ -6,23 +6,23 @@ import EnquiryForm from '../components/common/EnquiryForm'
 const cards = [
   {
     icon: MapPin,
-    title: 'Visit Us',
-    lines: ['Nextone Towers, Baner Road', 'Pune, Maharashtra 411045'],
-  },
-  {
-    icon: Phone,
-    title: 'Call Us',
-    lines: ['+91 98765 43210', '+91 91234 56789'],
+    title: 'Main office',
+    lines: [
+      '1st floor, RAHEJA CLASSIQUE,',
+      'Royal sands office 103, lane, Sastri Nagar Rd,',
+      'Phase D, Andheri West, Mumbai,',
+      'Maharashtra 400053',
+    ],
   },
   {
     icon: Mail,
-    title: 'Email Us',
-    lines: ['info@nextonerealty.com', 'sales@nextonerealty.com'],
+    title: 'Email',
+    lines: ['Info@nextonerealty.in', 'Mon-Sat, 9am-7pm'],
   },
   {
-    icon: Clock,
-    title: 'Office Hours',
-    lines: ['Mon – Sat: 9:30 AM – 7:00 PM', 'Sunday: 10:00 AM – 4:00 PM'],
+    icon: Phone,
+    title: 'Call',
+    lines: ['+91 9579305922', 'WhatsApp available'],
   },
 ]
 
@@ -38,7 +38,7 @@ export default function Contact() {
 
       <section className="py-16 sm:py-20">
         <div className="container-xl">
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
             {cards.map(({ icon: Icon, title, lines }, i) => (
               <motion.div
                 key={title}
@@ -52,9 +52,15 @@ export default function Contact() {
                   <Icon size={20} className="text-gold-600" />
                 </span>
                 <h3 className="font-semibold text-charcoal mb-2">{title}</h3>
-                {lines.map((line) => (
+                {lines.map((line, lineIndex) => (
                   <p key={line} className="text-sm text-charcoal/55">
-                    {line}
+                    {line.includes('@') ? (
+                      <a href={`mailto:${line}`} className="hover:text-gold-600 transition-colors">{line}</a>
+                    ) : line.startsWith('+91') ? (
+                      <a href={`tel:${line.replace(/\s/g, '')}`} className="hover:text-gold-600 transition-colors">{line}</a>
+                    ) : (
+                      line
+                    )}
                   </p>
                 ))}
               </motion.div>
@@ -71,7 +77,7 @@ export default function Contact() {
             >
               <iframe
                 title="Nextone Realty Location"
-                src="https://maps.google.com/maps?q=Pune%2C%20Maharashtra&t=&z=13&ie=UTF8&iwloc=&output=embed"
+                src="https://maps.google.com/maps?q=Raheja%20Classique%2C%20Andheri%20West%2C%20Mumbai%2C%20Maharashtra&t=&z=15&ie=UTF8&iwloc=&output=embed"
                 width="100%"
                 height="100%"
                 style={{ minHeight: 420, border: 0 }}

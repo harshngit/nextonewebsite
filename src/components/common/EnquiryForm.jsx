@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
-import { Send, CheckCircle2 } from 'lucide-react'
+import { Send, CheckCircle2, User, Phone, Mail, Building2, MessageSquare } from 'lucide-react'
 import { projects } from '../../data/projects'
 
 const initialState = { name: '', email: '', phone: '', project: '', message: '' }
@@ -44,15 +44,17 @@ export default function EnquiryForm({ compact = false, title = 'Get in Touch', s
         animate={{ opacity: 1, scale: 1 }}
         className="flex flex-col items-center justify-center text-center py-12 px-6"
       >
-        <CheckCircle2 className="text-gold-500 mb-4" size={48} />
-        <h3 className="text-xl font-semibold text-charcoal mb-2">Thank you!</h3>
-        <p className="text-charcoal/60 mb-6">
+        <div className="w-20 h-20 bg-gold-100 rounded-full flex items-center justify-center mb-6">
+          <CheckCircle2 className="text-gold-600" size={40} />
+        </div>
+        <h3 className="text-2xl font-semibold text-charcoal mb-3">Thank you!</h3>
+        <p className="text-charcoal/60 mb-8 max-w-xs">
           Your enquiry has been received. Our team will reach out to you shortly.
         </p>
         <button
           type="button"
           onClick={() => setSubmitted(false)}
-          className="text-gold-600 font-medium hover:underline"
+          className="px-6 py-2.5 bg-charcoal text-white rounded-lg hover:bg-ink transition-colors font-medium"
         >
           Submit another enquiry
         </button>
@@ -63,94 +65,124 @@ export default function EnquiryForm({ compact = false, title = 'Get in Touch', s
   return (
     <div>
       {title && (
-        <div className={compact ? 'mb-5' : 'mb-6'}>
-          <h3 className="text-xl font-semibold text-charcoal">{title}</h3>
-          {subtitle && <p className="text-sm text-charcoal/55 mt-1.5">{subtitle}</p>}
+        <div className={compact ? 'mb-6' : 'mb-8'}>
+          <h3 className="text-2xl font-semibold text-charcoal">{title}</h3>
+          {subtitle && <p className="text-sm text-charcoal/60 mt-2">{subtitle}</p>}
         </div>
       )}
 
-      <form onSubmit={handleSubmit} noValidate className="space-y-4">
-        <div className="grid sm:grid-cols-2 gap-4">
-          <div>
-            <input
-              type="text"
-              name="name"
-              placeholder="Full Name"
-              value={form.name}
-              onChange={handleChange}
-              className={`w-full rounded-lg border px-4 py-3 text-sm outline-none transition-colors focus:border-gold-500 ${
-                errors.name ? 'border-red-400' : 'border-charcoal/15'
-              }`}
-            />
-            {errors.name && <p className="text-red-500 text-xs mt-1">{errors.name}</p>}
+      <form onSubmit={handleSubmit} noValidate className="space-y-5">
+        <div className="grid sm:grid-cols-2 gap-5">
+          <div className="space-y-2">
+            <label htmlFor="name" className="block text-sm font-medium text-charcoal/80">Full Name</label>
+            <div className="relative">
+              <User className="absolute left-4 top-1/2 -translate-y-1/2 text-charcoal/30" size={18} />
+              <input
+                id="name"
+                type="text"
+                name="name"
+                placeholder="John Doe"
+                value={form.name}
+                onChange={handleChange}
+                className={`w-full rounded-xl border pl-11 pr-4 py-3.5 text-sm outline-none transition-all focus:border-gold-500 focus:ring-4 focus:ring-gold-500/10 hover:border-charcoal/25 ${
+                  errors.name ? 'border-red-400 focus:border-red-400 focus:ring-red-400/10' : 'border-charcoal/15'
+                }`}
+              />
+            </div>
+            {errors.name && <p className="text-red-500 text-xs mt-1.5 flex items-center gap-1">{errors.name}</p>}
           </div>
-          <div>
-            <input
-              type="tel"
-              name="phone"
-              placeholder="Phone Number"
-              value={form.phone}
-              onChange={handleChange}
-              className={`w-full rounded-lg border px-4 py-3 text-sm outline-none transition-colors focus:border-gold-500 ${
-                errors.phone ? 'border-red-400' : 'border-charcoal/15'
-              }`}
-            />
-            {errors.phone && <p className="text-red-500 text-xs mt-1">{errors.phone}</p>}
+          <div className="space-y-2">
+            <label htmlFor="phone" className="block text-sm font-medium text-charcoal/80">Phone Number</label>
+            <div className="relative">
+              <Phone className="absolute left-4 top-1/2 -translate-y-1/2 text-charcoal/30" size={18} />
+              <input
+                id="phone"
+                type="tel"
+                name="phone"
+                placeholder="98765 43210"
+                value={form.phone}
+                onChange={handleChange}
+                className={`w-full rounded-xl border pl-11 pr-4 py-3.5 text-sm outline-none transition-all focus:border-gold-500 focus:ring-4 focus:ring-gold-500/10 hover:border-charcoal/25 ${
+                  errors.phone ? 'border-red-400 focus:border-red-400 focus:ring-red-400/10' : 'border-charcoal/15'
+                }`}
+              />
+            </div>
+            {errors.phone && <p className="text-red-500 text-xs mt-1.5 flex items-center gap-1">{errors.phone}</p>}
           </div>
         </div>
 
-        <div>
-          <input
-            type="email"
-            name="email"
-            placeholder="Email Address"
-            value={form.email}
-            onChange={handleChange}
-            className={`w-full rounded-lg border px-4 py-3 text-sm outline-none transition-colors focus:border-gold-500 ${
-              errors.email ? 'border-red-400' : 'border-charcoal/15'
-            }`}
-          />
-          {errors.email && <p className="text-red-500 text-xs mt-1">{errors.email}</p>}
+        <div className="space-y-2">
+          <label htmlFor="email" className="block text-sm font-medium text-charcoal/80">Email Address</label>
+          <div className="relative">
+            <Mail className="absolute left-4 top-1/2 -translate-y-1/2 text-charcoal/30" size={18} />
+            <input
+              id="email"
+              type="email"
+              name="email"
+              placeholder="you@example.com"
+              value={form.email}
+              onChange={handleChange}
+              className={`w-full rounded-xl border pl-11 pr-4 py-3.5 text-sm outline-none transition-all focus:border-gold-500 focus:ring-4 focus:ring-gold-500/10 hover:border-charcoal/25 ${
+                errors.email ? 'border-red-400 focus:border-red-400 focus:ring-red-400/10' : 'border-charcoal/15'
+              }`}
+            />
+          </div>
+          {errors.email && <p className="text-red-500 text-xs mt-1.5 flex items-center gap-1">{errors.email}</p>}
         </div>
 
-        <div>
-          <select
-            name="project"
-            value={form.project}
-            onChange={handleChange}
-            className="w-full rounded-lg border border-charcoal/15 px-4 py-3 text-sm outline-none focus:border-gold-500 text-charcoal/80 bg-white"
-          >
-            <option value="">Interested Project (optional)</option>
-            {projects.map((p) => (
-              <option key={p.id} value={p.name}>
-                {p.name}
-              </option>
-            ))}
-          </select>
+        <div className="space-y-2">
+          <label htmlFor="project" className="block text-sm font-medium text-charcoal/80">Interested Project (optional)</label>
+          <div className="relative">
+            <Building2 className="absolute left-4 top-1/2 -translate-y-1/2 text-charcoal/30" size={18} />
+            <select
+              id="project"
+              name="project"
+              value={form.project}
+              onChange={handleChange}
+              className="w-full rounded-xl border border-charcoal/15 pl-11 pr-10 py-3.5 text-sm outline-none transition-all focus:border-gold-500 focus:ring-4 focus:ring-gold-500/10 hover:border-charcoal/25 text-charcoal/80 bg-white appearance-none cursor-pointer"
+            >
+              <option value="">Select a project</option>
+              {projects.map((p) => (
+                <option key={p.id} value={p.name}>
+                  {p.name}
+                </option>
+              ))}
+            </select>
+            <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none">
+              <svg className="w-4 h-4 text-charcoal/40" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+              </svg>
+            </div>
+          </div>
         </div>
 
         {!compact && (
-          <div>
-            <textarea
-              name="message"
-              placeholder="Your Message"
-              rows={3}
-              value={form.message}
-              onChange={handleChange}
-              className="w-full rounded-lg border border-charcoal/15 px-4 py-3 text-sm outline-none focus:border-gold-500 resize-none"
-            />
+          <div className="space-y-2">
+            <label htmlFor="message" className="block text-sm font-medium text-charcoal/80">Your Message</label>
+            <div className="relative">
+              <MessageSquare className="absolute left-4 top-4 text-charcoal/30" size={18} />
+              <textarea
+                id="message"
+                name="message"
+                placeholder="Tell us about your requirements..."
+                rows={4}
+                value={form.message}
+                onChange={handleChange}
+                className="w-full rounded-xl border border-charcoal/15 pl-11 pr-4 py-3.5 text-sm outline-none transition-all focus:border-gold-500 focus:ring-4 focus:ring-gold-500/10 hover:border-charcoal/25 resize-none"
+              />
+            </div>
           </div>
         )}
 
         <button
           type="submit"
-          className="w-full inline-flex items-center justify-center gap-2 bg-gold-500 hover:bg-gold-600 text-white font-semibold px-6 py-3.5 rounded-lg transition-colors"
+          className="w-full inline-flex items-center justify-center gap-2 bg-gold-500 hover:bg-gold-600 active:bg-gold-700 text-white font-semibold px-6 py-4 rounded-xl transition-all transform hover:scale-[1.01] active:scale-[0.99] shadow-lg shadow-gold-500/25"
         >
           Submit Enquiry
-          <Send size={16} />
+          <Send size={18} />
         </button>
 
-        <p className="text-[11px] text-center text-charcoal/40">
+        <p className="text-[12px] text-center text-charcoal/45">
           By submitting, you agree to be contacted by Nextone Realty regarding your enquiry.
         </p>
       </form>

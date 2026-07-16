@@ -5,6 +5,7 @@ import { SlidersHorizontal, Search as SearchIcon } from 'lucide-react'
 import PageBanner from '../components/common/PageBanner'
 import ProjectCard from '../components/common/ProjectCard'
 import Dropdown from '../components/common/Dropdown'
+import EnquiryForm from '../components/common/EnquiryForm'
 import { projects, projectTypes, projectStatuses, cities } from '../data/projects'
 
 export default function Projects() {
@@ -97,6 +98,18 @@ export default function Projects() {
               No projects match your filters. Try adjusting your search.
             </motion.div>
           )}
+        </div>
+      </section>
+
+      <section className="py-16 sm:py-20">
+        <div className="container-xl">
+          <div className="max-w-2xl mx-auto bg-white rounded-2xl border border-gold-100 shadow-sm p-6 sm:p-8">
+            <EnquiryForm
+              compact
+              title="Get in Touch"
+              subtitle="Interested in a project? Let's connect and find your perfect space."
+            />
+          </div>
         </div>
       </section>
     </>

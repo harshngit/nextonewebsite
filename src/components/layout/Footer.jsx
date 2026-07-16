@@ -77,8 +77,7 @@ export default function Footer() {
             <li className="flex items-start gap-3">
               <MapPin size={18} className="text-gold-400 shrink-0 mt-0.5" />
               <span>
-                Main office 1st floor, Raheja Classique, Royal Sands office 103, Lane, Sastri
-                Nagar Rd, Phase D, Mumbai, Maharashtra
+                1st floor, RAHEJA CLASSIQUE, Royal sands office 103, lane, Sastri Nagar Rd, Phase D, Andheri West, Mumbai, Maharashtra 400053
               </span>
             </li>
             <li className="flex items-center gap-3">
@@ -89,8 +88,8 @@ export default function Footer() {
             </li>
             <li className="flex items-center gap-3">
               <Mail size={18} className="text-gold-400 shrink-0" />
-              <a href="mailto:info@nextonerealty.in" className="hover:text-gold-300 transition-colors">
-                info@nextonerealty.in
+              <a href="mailto:Info@nextonerealty.in" className="hover:text-gold-300 transition-colors">
+                Info@nextonerealty.in
               </a>
             </li>
           </ul>
@@ -100,7 +99,9 @@ export default function Footer() {
       <div className="border-t border-white/10">
         <div className="container-xl py-5 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-white/40">
           <p>© {new Date().getFullYear()} Nextone Realty. All rights reserved.</p>
-          <p>RERA registered developer &middot; Designed for real life.</p>
+          <p>
+            Developed by <a href="https://asynk.in" target="_blank" rel="noopener noreferrer" className="text-gold-400 hover:text-gold-300 transition-colors">asynk.in</a> &middot; RERA registered developer
+          </p>
         </div>
       </div>
     </footer>
