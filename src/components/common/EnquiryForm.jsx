@@ -1,14 +1,14 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
-import { Send, CheckCircle2, User, Phone, Mail, Building2, MessageSquare } from 'lucide-react'
-import { projects } from '../../data/projects'
+import { Send, CheckCircle2, User, Phone, Mail, Building2, MessageSquare, Loader2 } from 'lucide-react'
 
-const initialState = { name: '', email: '', phone: '', project: '', message: '' }
+const initialState = { name: '', email: '', phone: '', project_name: '', message: '' }
 
 export default function EnquiryForm({ compact = false, title = 'Get in Touch', subtitle = 'Share your details and our team will call you back within 24 hours.' }) {
   const [form, setForm] = useState(initialState)
   const [errors, setErrors] = useState({})
   const [submitted, setSubmitted] = useState(false)
+  const [loading, setLoading] = useState(false)
 
   const handleChange = (e) => {
     const { name, value } = e.target
@@ -26,15 +26,44 @@ export default function EnquiryForm({ compact = false, title = 'Get in Touch', s
     return next
   }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
     const validationErrors = validate()
     if (Object.keys(validationErrors).length > 0) {
       setErrors(validationErrors)
       return
     }
-    setSubmitted(true)
-    setForm(initialState)
+
+    setLoading(true)
+
+    try {
+      const response = await fetch('https://api.nextonerealty.in/api/v1/website-inquiries', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name: form.name,
+          phone: form.phone.replace(/\D/g, ''),
+          email: form.email,
+          message: form.message || '',
+          project_name: form.project_name || '',
+          source: 'Website',
+        }),
+      })
+
+      if (!response.ok) {
+        throw new Error('Failed to submit enquiry')
+      }
+
+      setSubmitted(true)
+      setForm(initialState)
+    } catch (error) {
+      console.error('Error submitting enquiry:', error)
+      alert('Something went wrong. Please try again.')
+    } finally {
+      setLoading(false)
+    }
   }
 
   if (submitted) {
@@ -84,9 +113,10 @@ export default function EnquiryForm({ compact = false, title = 'Get in Touch', s
                 placeholder="John Doe"
                 value={form.name}
                 onChange={handleChange}
+                disabled={loading}
                 className={`w-full rounded-xl border pl-11 pr-4 py-3.5 text-sm outline-none transition-all focus:border-gold-500 focus:ring-4 focus:ring-gold-500/10 hover:border-charcoal/25 ${
                   errors.name ? 'border-red-400 focus:border-red-400 focus:ring-red-400/10' : 'border-charcoal/15'
-                }`}
+                } ${loading ? 'opacity-60 cursor-not-allowed' : ''}`}
               />
             </div>
             {errors.name && <p className="text-red-500 text-xs mt-1.5 flex items-center gap-1">{errors.name}</p>}
@@ -102,9 +132,10 @@ export default function EnquiryForm({ compact = false, title = 'Get in Touch', s
                 placeholder="98765 43210"
                 value={form.phone}
                 onChange={handleChange}
+                disabled={loading}
                 className={`w-full rounded-xl border pl-11 pr-4 py-3.5 text-sm outline-none transition-all focus:border-gold-500 focus:ring-4 focus:ring-gold-500/10 hover:border-charcoal/25 ${
                   errors.phone ? 'border-red-400 focus:border-red-400 focus:ring-red-400/10' : 'border-charcoal/15'
-                }`}
+                } ${loading ? 'opacity-60 cursor-not-allowed' : ''}`}
               />
             </div>
             {errors.phone && <p className="text-red-500 text-xs mt-1.5 flex items-center gap-1">{errors.phone}</p>}
@@ -122,37 +153,31 @@ export default function EnquiryForm({ compact = false, title = 'Get in Touch', s
               placeholder="you@example.com"
               value={form.email}
               onChange={handleChange}
+              disabled={loading}
               className={`w-full rounded-xl border pl-11 pr-4 py-3.5 text-sm outline-none transition-all focus:border-gold-500 focus:ring-4 focus:ring-gold-500/10 hover:border-charcoal/25 ${
                 errors.email ? 'border-red-400 focus:border-red-400 focus:ring-red-400/10' : 'border-charcoal/15'
-              }`}
+              } ${loading ? 'opacity-60 cursor-not-allowed' : ''}`}
             />
           </div>
           {errors.email && <p className="text-red-500 text-xs mt-1.5 flex items-center gap-1">{errors.email}</p>}
         </div>
 
         <div className="space-y-2">
-          <label htmlFor="project" className="block text-sm font-medium text-charcoal/80">Interested Project (optional)</label>
+          <label htmlFor="project_name" className="block text-sm font-medium text-charcoal/80">Interested Project (optional)</label>
           <div className="relative">
             <Building2 className="absolute left-4 top-1/2 -translate-y-1/2 text-charcoal/30" size={18} />
-            <select
-              id="project"
-              name="project"
-              value={form.project}
+            <input
+              id="project_name"
+              type="text"
+              name="project_name"
+              placeholder="Enter project name"
+              value={form.project_name}
               onChange={handleChange}
-              className="w-full rounded-xl border border-charcoal/15 pl-11 pr-10 py-3.5 text-sm outline-none transition-all focus:border-gold-500 focus:ring-4 focus:ring-gold-500/10 hover:border-charcoal/25 text-charcoal/80 bg-white appearance-none cursor-pointer"
-            >
-              <option value="">Select a project</option>
-              {projects.map((p) => (
-                <option key={p.id} value={p.name}>
-                  {p.name}
-                </option>
-              ))}
-            </select>
-            <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none">
-              <svg className="w-4 h-4 text-charcoal/40" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-              </svg>
-            </div>
+              disabled={loading}
+              className={`w-full rounded-xl border pl-11 pr-4 py-3.5 text-sm outline-none transition-all focus:border-gold-500 focus:ring-4 focus:ring-gold-500/10 hover:border-charcoal/25 ${
+                'border-charcoal/15'
+              } ${loading ? 'opacity-60 cursor-not-allowed' : ''}`}
+            />
           </div>
         </div>
 
@@ -168,7 +193,10 @@ export default function EnquiryForm({ compact = false, title = 'Get in Touch', s
                 rows={4}
                 value={form.message}
                 onChange={handleChange}
-                className="w-full rounded-xl border border-charcoal/15 pl-11 pr-4 py-3.5 text-sm outline-none transition-all focus:border-gold-500 focus:ring-4 focus:ring-gold-500/10 hover:border-charcoal/25 resize-none"
+                disabled={loading}
+                className={`w-full rounded-xl border border-charcoal/15 pl-11 pr-4 py-3.5 text-sm outline-none transition-all focus:border-gold-500 focus:ring-4 focus:ring-gold-500/10 hover:border-charcoal/25 resize-none ${
+                  loading ? 'opacity-60 cursor-not-allowed' : ''
+                }`}
               />
             </div>
           </div>
@@ -176,10 +204,20 @@ export default function EnquiryForm({ compact = false, title = 'Get in Touch', s
 
         <button
           type="submit"
-          className="w-full inline-flex items-center justify-center gap-2 bg-gold-500 hover:bg-gold-600 active:bg-gold-700 text-white font-semibold px-6 py-4 rounded-xl transition-all transform hover:scale-[1.01] active:scale-[0.99] shadow-lg shadow-gold-500/25"
+          disabled={loading}
+          className="w-full inline-flex items-center justify-center gap-2 bg-gold-500 hover:bg-gold-600 active:bg-gold-700 disabled:bg-gold-400 disabled:cursor-not-allowed text-white font-semibold px-6 py-4 rounded-xl transition-all transform hover:scale-[1.01] active:scale-[0.99] shadow-lg shadow-gold-500/25"
         >
-          Submit Enquiry
-          <Send size={18} />
+          {loading ? (
+            <>
+              <Loader2 className="animate-spin" size={18} />
+              Submitting...
+            </>
+          ) : (
+            <>
+              Submit Enquiry
+              <Send size={18} />
+            </>
+          )}
         </button>
 
         <p className="text-[12px] text-center text-charcoal/45">
