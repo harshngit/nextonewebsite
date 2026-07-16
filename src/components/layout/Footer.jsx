@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
-import { Building2, MapPin, Phone, Mail } from 'lucide-react'
+import { MapPin, Phone, Mail } from 'lucide-react'
 import { FacebookIcon, InstagramIcon, LinkedinIcon, XIcon } from '../common/SocialIcons'
+import logo from '../../assets/logo.png'
 
 const quickLinks = [
   { label: 'Home', to: '/' },
@@ -17,10 +18,8 @@ export default function Footer() {
     <footer className="bg-charcoal text-white">
       <div className="container-xl py-16 grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
         <div>
-          <Link to="/" className="flex items-center gap-2 mb-4">
-            <span className="flex items-center justify-center w-10 h-10 rounded-lg bg-gold-500">
-              <Building2 size={20} className="text-white" />
-            </span>
+          <Link to="/" className="flex items-center gap-2.5 mb-4">
+            <img src={logo} alt="Nextone Realty" className="h-11 w-11 object-contain shrink-0" />
             <span className="font-heading text-xl font-semibold leading-none text-white">
               Nextone
               <span className="block text-[11px] tracking-[0.3em] font-sans font-medium text-gold-400 uppercase mt-0.5">
@@ -77,18 +76,21 @@ export default function Footer() {
           <ul className="space-y-4 text-sm text-white/60">
             <li className="flex items-start gap-3">
               <MapPin size={18} className="text-gold-400 shrink-0 mt-0.5" />
-              <span>Nextone Towers, Baner Road, Pune, Maharashtra 411045</span>
+              <span>
+                Main office 1st floor, Raheja Classique, Royal Sands office 103, Lane, Sastri
+                Nagar Rd, Phase D, Mumbai, Maharashtra
+              </span>
             </li>
             <li className="flex items-center gap-3">
               <Phone size={18} className="text-gold-400 shrink-0" />
-              <a href="tel:+919876543210" className="hover:text-gold-300 transition-colors">
-                +91 98765 43210
+              <a href="tel:+919579305922" className="hover:text-gold-300 transition-colors">
+                +91 95793 05922
               </a>
             </li>
             <li className="flex items-center gap-3">
               <Mail size={18} className="text-gold-400 shrink-0" />
-              <a href="mailto:info@nextonerealty.com" className="hover:text-gold-300 transition-colors">
-                info@nextonerealty.com
+              <a href="mailto:info@nextonerealty.in" className="hover:text-gold-300 transition-colors">
+                info@nextonerealty.in
               </a>
             </li>
           </ul>

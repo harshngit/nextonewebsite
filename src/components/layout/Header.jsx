@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react'
 import { Link, NavLink } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Menu, X, Phone, Building2 } from 'lucide-react'
+import { Menu, X, Phone } from 'lucide-react'
+import logo from '../../assets/logo.png'
 
 const navLinks = [
   { label: 'Home', to: '/' },
@@ -33,14 +34,8 @@ export default function Header() {
       }`}
     >
       <div className="container-xl flex items-center justify-between">
-        <Link to="/" className="flex items-center gap-2 shrink-0">
-          <span
-            className={`flex items-center justify-center w-10 h-10 rounded-lg ${
-              scrolled ? 'bg-gold-500' : 'bg-white/15 backdrop-blur'
-            }`}
-          >
-            <Building2 size={20} className={scrolled ? 'text-white' : 'text-gold-300'} />
-          </span>
+        <Link to="/" className="flex items-center gap-2.5 shrink-0">
+          <img src={logo} alt="Nextone Realty" className="h-11 w-11 object-contain shrink-0" />
           <span className={`font-heading text-xl font-semibold leading-none ${scrolled ? 'text-charcoal' : 'text-white'}`}>
             Nextone
             <span className="block text-[11px] tracking-[0.3em] font-sans font-medium text-gold-500 uppercase mt-0.5">
@@ -72,11 +67,11 @@ export default function Header() {
 
         <div className="hidden lg:flex items-center gap-4">
           <a
-            href="tel:+919876543210"
+            href="tel:+919579305922"
             className={`flex items-center gap-2 text-sm font-medium ${scrolled ? 'text-charcoal/80' : 'text-white/90'}`}
           >
             <Phone size={16} className="text-gold-500" />
-            +91 98765 43210
+            +91 95793 05922
           </a>
           <Link
             to="/contact"
