@@ -1,0 +1,29 @@
+{
+  "permissions": {
+    "allow": [
+      "PowerShell(node -v)",
+      "PowerShell(npm -v)",
+      "PowerShell(npm create vite@latest . -- --template react 2>&1)",
+      "PowerShell(npm create vite@latest . -- --template react --overwrite 2>&1)",
+      "PowerShell(npm install 2>&1)",
+      "PowerShell(npm install tailwindcss @tailwindcss/vite react-router-dom swiper framer-motion lucide-react 2>&1)",
+      "Bash(npm run *)",
+      "Read(//tmp/**)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\\\\n\" http://localhost:5183/)",
+      "Skill(run)",
+      "Skill(run:*)",
+      "Bash(npm ls *)",
+      "Bash(npx --yes playwright --version)",
+      "Bash(npx --yes playwright install chromium)",
+      "Bash(node \"C:/Users/Lenovo/AppData/Local/Temp/claude/d--Clients-nextone-website/1b11ab5c-dcce-4cf3-84a9-5b0dbcf2decb/scratchpad/verify.js\")",
+      "Bash(node verify.cjs)",
+      "Bash(node -e \"const icons = require\\('lucide-react'\\); console.log\\(Object.keys\\(icons\\).filter\\(k => /facebook|instagram|twitter|linkedin|x\\\\b/i.test\\(k\\)\\)\\)\")",
+      "Bash(node -e ' *)",
+      "Bash(npm uninstall *)",
+      "Bash(node verify2.cjs)",
+      "Bash(rm -f verify2.cjs)",
+      "Bash(node verify3.cjs)",
+      "Bash(rm -f verify3.cjs)"
+    ]
+  }
+}
